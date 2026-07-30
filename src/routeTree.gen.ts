@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AchievementsRouteImport } from './routes/achievements'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as HackathonsRouteImport } from './routes/hackathons'
@@ -33,6 +34,11 @@ const AboutRoute = AboutRouteImport.update({
 const AchievementsRoute = AchievementsRouteImport.update({
   id: '/achievements',
   path: '/achievements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentsRoute = DocumentsRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/achievements': typeof AchievementsRoute
+  '/contact': typeof ContactRoute
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
   '/hackathons': typeof HackathonsRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/achievements': typeof AchievementsRoute
+  '/contact': typeof ContactRoute
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
   '/hackathons': typeof HackathonsRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/achievements': typeof AchievementsRoute
+  '/contact': typeof ContactRoute
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
   '/hackathons': typeof HackathonsRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/achievements'
+    | '/contact'
     | '/documents'
     | '/gallery'
     | '/hackathons'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/achievements'
+    | '/contact'
     | '/documents'
     | '/gallery'
     | '/hackathons'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/achievements'
+    | '/contact'
     | '/documents'
     | '/gallery'
     | '/hackathons'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AchievementsRoute: typeof AchievementsRoute
+  ContactRoute: typeof ContactRoute
   DocumentsRoute: typeof DocumentsRoute
   GalleryRoute: typeof GalleryRoute
   HackathonsRoute: typeof HackathonsRoute
@@ -181,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/achievements'
       fullPath: '/achievements'
       preLoaderRoute: typeof AchievementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/documents': {
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AchievementsRoute: AchievementsRoute,
+  ContactRoute: ContactRoute,
   DocumentsRoute: DocumentsRoute,
   GalleryRoute: GalleryRoute,
   HackathonsRoute: HackathonsRoute,

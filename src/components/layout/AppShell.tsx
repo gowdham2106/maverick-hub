@@ -4,14 +4,12 @@ import { useRouterState } from "@tanstack/react-router";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { Footer } from "./Footer";
-import { useTheme } from "@/hooks/use-theme";
 
 /** App chrome: sidebar + topbar + animated page transitions + footer. */
 export function AppShell({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const { theme, toggle } = useTheme();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
@@ -47,8 +45,6 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar
-          theme={theme}
-          onToggleTheme={toggle}
           onOpenMobileNav={() => setMobileOpen(true)}
           query={query}
           onQueryChange={setQuery}

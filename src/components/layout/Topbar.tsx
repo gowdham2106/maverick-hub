@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bell, MessageSquare, Menu, Moon, Search, Sun } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /** Live clock + current date, hydration-safe (renders after mount). */
@@ -25,43 +25,11 @@ function LiveClock() {
   );
 }
 
-function IconButton({
-  label,
-  badge,
-  onClick,
-  children,
-}: {
-  label: string;
-  badge?: number;
-  onClick?: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      onClick={onClick}
-      className="relative grid h-11 w-11 place-items-center rounded-xl border border-border bg-card/60 text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-    >
-      {children}
-      {badge ? (
-        <span className="gradient-brand absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full px-1 text-[10px] font-bold text-primary-foreground">
-          {badge}
-        </span>
-      ) : null}
-    </button>
-  );
-}
-
 export function Topbar({
-  theme,
-  onToggleTheme,
   onOpenMobileNav,
   query,
   onQueryChange,
 }: {
-  theme: "light" | "dark";
-  onToggleTheme: () => void;
   onOpenMobileNav: () => void;
   query: string;
   onQueryChange: (v: string) => void;
@@ -87,7 +55,7 @@ export function Topbar({
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             type="search"
-            placeholder="Search members, projects, documents…"
+            placeholder="Search the workspace…"
             aria-label="Search everything"
             className={cn(
               "h-11 w-full rounded-xl border border-border bg-card/60 pl-9 pr-3 text-sm",
@@ -99,15 +67,6 @@ export function Topbar({
         <LiveClock />
 
         <div className="flex shrink-0 items-center gap-2">
-          <IconButton label="Notifications" badge={4}>
-            <Bell className="h-5 w-5" aria-hidden />
-          </IconButton>
-          <IconButton label="Messages" badge={2}>
-            <MessageSquare className="h-5 w-5" aria-hidden />
-          </IconButton>
-          <IconButton label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} onClick={onToggleTheme}>
-            {theme === "dark" ? <Sun className="h-5 w-5" aria-hidden /> : <Moon className="h-5 w-5" aria-hidden />}
-          </IconButton>
           <span className="gradient-brand grid h-11 w-11 place-items-center rounded-xl text-sm font-bold text-primary-foreground">
             AM
           </span>

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AchievementsRouteImport } from './routes/achievements'
+import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as HackathonsRouteImport } from './routes/hackathons'
 import { Route as MembersRouteImport } from './routes/members'
@@ -32,6 +33,11 @@ const AboutRoute = AboutRouteImport.update({
 const AchievementsRoute = AchievementsRouteImport.update({
   id: '/achievements',
   path: '/achievements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsRoute = DocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/achievements': typeof AchievementsRoute
+  '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
   '/hackathons': typeof HackathonsRoute
   '/members': typeof MembersRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/achievements': typeof AchievementsRoute
+  '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
   '/hackathons': typeof HackathonsRoute
   '/members': typeof MembersRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/achievements': typeof AchievementsRoute
+  '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
   '/hackathons': typeof HackathonsRoute
   '/members': typeof MembersRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/achievements'
+    | '/documents'
     | '/gallery'
     | '/hackathons'
     | '/members'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/achievements'
+    | '/documents'
     | '/gallery'
     | '/hackathons'
     | '/members'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/achievements'
+    | '/documents'
     | '/gallery'
     | '/hackathons'
     | '/members'
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AchievementsRoute: typeof AchievementsRoute
+  DocumentsRoute: typeof DocumentsRoute
   GalleryRoute: typeof GalleryRoute
   HackathonsRoute: typeof HackathonsRoute
   MembersRoute: typeof MembersRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/achievements'
       fullPath: '/achievements'
       preLoaderRoute: typeof AchievementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents': {
+      id: '/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof DocumentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -219,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AchievementsRoute: AchievementsRoute,
+  DocumentsRoute: DocumentsRoute,
   GalleryRoute: GalleryRoute,
   HackathonsRoute: HackathonsRoute,
   MembersRoute: MembersRoute,

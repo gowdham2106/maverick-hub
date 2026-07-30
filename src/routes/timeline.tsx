@@ -1,16 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "motion/react";
-import { CheckCircle2, Circle } from "lucide-react";
-import { GlassCard, PageHeader } from "@/components/ui-kit";
-import { TIMELINE } from "@/data/team";
+import { CheckCircle2, Circle, Loader2 } from "lucide-react";
+import { GlassCard, PageHeader, Reveal } from "@/components/ui-kit";
+import { PROJECT_TIMELINE } from "@/data/team";
 
 export const Route = createFileRoute("/timeline")({
   head: () => ({
     meta: [
-      { title: "Timeline — Mission Mavericks" },
-      { name: "description", content: "From idea to deployment: the Mission Mavericks delivery timeline." },
-      { property: "og:title", content: "Timeline — Mission Mavericks" },
-      { property: "og:description", content: "Idea, research, planning, development, testing, deployment." },
+      { title: "Project Timeline — Mission Mavericks" },
+      { name: "description", content: "Phase-by-phase delivery timeline for the Motor Claims Intelligence Hub." },
+      { property: "og:title", content: "Project Timeline — Mission Mavericks" },
+      { property: "og:description", content: "Idea to deployment: how MCIH is being built." },
     ],
   }),
   component: TimelinePage,
@@ -21,45 +20,41 @@ function TimelinePage() {
     <div>
       <PageHeader
         eyebrow="Timeline"
-        title="Idea to deployment"
-        description="Seven phases, eleven months, three products in production."
+        title="How MCIH is coming together"
+        description="Six phases from first sketch to a deployed, demo-ready platform."
       />
 
-      <div className="relative">
-        <div className="gradient-brand absolute left-4 top-0 h-full w-[3px] rounded-full opacity-40 md:left-1/2 md:-translate-x-1/2" aria-hidden />
-        <ol className="space-y-6">
-          {TIMELINE.map((t, i) => (
-            <motion.li
-              key={t.phase}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              className={`relative pl-12 md:w-1/2 md:pl-0 ${i % 2 ? "md:ml-auto md:pl-12" : "md:pr-12 md:text-right"}`}
-            >
+      <ol className="relative space-y-4 border-l border-border pl-6">
+        {PROJECT_TIMELINE.map((t, i) => (
+          <Reveal key={t.phase} delay={i * 0.05}>
+            <li className="relative">
               <span
-                className={`absolute top-6 grid h-7 w-7 place-items-center rounded-full border-4 border-background ${
-                  t.done ? "gradient-brand" : "bg-muted"
-                } left-1 ${i % 2 ? "md:-left-3.5" : "md:left-auto md:-right-3.5"}`}
-                aria-hidden
-              >
-                {t.done ? (
-                  <CheckCircle2 className="h-3.5 w-3.5 text-primary-foreground" />
+                className={
+                  t.state === "upcoming"
+                    ? "absolute -left-[31px] top-5 h-3 w-3 rounded-full bg-muted ring-4 ring-background"
+                    : "gradient-brand absolute -left-[31px] top-5 h-3 w-3 rounded-full ring-4 ring-background"
+                }
+              />
+              <GlassCard interactive className="flex items-start gap-4 p-5">
+                {t.state === "done" ? (
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden />
+                ) : t.state === "current" ? (
+                  <Loader2 className="mt-0.5 h-5 w-5 shrink-0 animate-spin text-primary" aria-hidden />
                 ) : (
-                  <Circle className="h-3.5 w-3.5 text-muted-foreground" />
+                  <Circle className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden />
                 )}
-              </span>
-              <GlassCard className="p-6">
-                <div className="flex flex-wrap items-baseline gap-2 md:justify-inherit">
-                  <h2 className="text-base font-semibold">{t.phase}</h2>
-                  <span className="text-xs text-muted-foreground">{t.date}</span>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-baseline gap-2">
+                    <p className="font-semibold">{t.phase}</p>
+                    <span className="text-xs capitalize text-muted-foreground">{t.state}</span>
+                  </div>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{t.detail}</p>
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">{t.detail}</p>
               </GlassCard>
-            </motion.li>
-          ))}
-        </ol>
-      </div>
+            </li>
+          </Reveal>
+        ))}
+      </ol>
     </div>
   );
 }

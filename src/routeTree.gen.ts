@@ -11,15 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as GalleryRouteImport } from './routes/gallery'
-import { Route as HackathonsRouteImport } from './routes/hackathons'
-import { Route as MembersRouteImport } from './routes/members'
 import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
@@ -30,11 +25,6 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AchievementsRoute = AchievementsRouteImport.update({
-  id: '/achievements',
-  path: '/achievements',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -52,29 +42,9 @@ const GalleryRoute = GalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HackathonsRoute = HackathonsRouteImport.update({
-  id: '/hackathons',
-  path: '/hackathons',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MembersRoute = MembersRouteImport.update({
-  id: '/members',
-  path: '/members',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SkillsRoute = SkillsRouteImport.update({
-  id: '/skills',
-  path: '/skills',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TimelineRoute = TimelineRouteImport.update({
@@ -86,44 +56,29 @@ const TimelineRoute = TimelineRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
-  '/hackathons': typeof HackathonsRoute
-  '/members': typeof MembersRoute
   '/projects': typeof ProjectsRoute
-  '/settings': typeof SettingsRoute
-  '/skills': typeof SkillsRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
-  '/hackathons': typeof HackathonsRoute
-  '/members': typeof MembersRoute
   '/projects': typeof ProjectsRoute
-  '/settings': typeof SettingsRoute
-  '/skills': typeof SkillsRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
-  '/hackathons': typeof HackathonsRoute
-  '/members': typeof MembersRoute
   '/projects': typeof ProjectsRoute
-  '/settings': typeof SettingsRoute
-  '/skills': typeof SkillsRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
@@ -131,58 +86,38 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/achievements'
     | '/contact'
     | '/documents'
     | '/gallery'
-    | '/hackathons'
-    | '/members'
     | '/projects'
-    | '/settings'
-    | '/skills'
     | '/timeline'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/achievements'
     | '/contact'
     | '/documents'
     | '/gallery'
-    | '/hackathons'
-    | '/members'
     | '/projects'
-    | '/settings'
-    | '/skills'
     | '/timeline'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/achievements'
     | '/contact'
     | '/documents'
     | '/gallery'
-    | '/hackathons'
-    | '/members'
     | '/projects'
-    | '/settings'
-    | '/skills'
     | '/timeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AchievementsRoute: typeof AchievementsRoute
   ContactRoute: typeof ContactRoute
   DocumentsRoute: typeof DocumentsRoute
   GalleryRoute: typeof GalleryRoute
-  HackathonsRoute: typeof HackathonsRoute
-  MembersRoute: typeof MembersRoute
   ProjectsRoute: typeof ProjectsRoute
-  SettingsRoute: typeof SettingsRoute
-  SkillsRoute: typeof SkillsRoute
   TimelineRoute: typeof TimelineRoute
 }
 
@@ -200,13 +135,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/achievements': {
-      id: '/achievements'
-      path: '/achievements'
-      fullPath: '/achievements'
-      preLoaderRoute: typeof AchievementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -230,39 +158,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hackathons': {
-      id: '/hackathons'
-      path: '/hackathons'
-      fullPath: '/hackathons'
-      preLoaderRoute: typeof HackathonsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/members': {
-      id: '/members'
-      path: '/members'
-      fullPath: '/members'
-      preLoaderRoute: typeof MembersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/projects': {
       id: '/projects'
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/skills': {
-      id: '/skills'
-      path: '/skills'
-      fullPath: '/skills'
-      preLoaderRoute: typeof SkillsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/timeline': {
@@ -278,15 +178,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AchievementsRoute: AchievementsRoute,
   ContactRoute: ContactRoute,
   DocumentsRoute: DocumentsRoute,
   GalleryRoute: GalleryRoute,
-  HackathonsRoute: HackathonsRoute,
-  MembersRoute: MembersRoute,
   ProjectsRoute: ProjectsRoute,
-  SettingsRoute: SettingsRoute,
-  SkillsRoute: SkillsRoute,
   TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport

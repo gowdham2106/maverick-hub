@@ -2,16 +2,11 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import {
   LayoutDashboard,
-  Users,
   FolderKanban,
-  Gauge,
-  Trophy,
-  Code2,
   GitBranch,
   Images,
   FileText,
   Mail,
-  Settings,
   Info,
   PanelLeftClose,
   PanelLeftOpen,
@@ -22,17 +17,13 @@ import { cn } from "@/lib/utils";
 export const NAV_ITEMS = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/about", label: "About Team", icon: Info },
-  { to: "/members", label: "Members", icon: Users },
-  { to: "/projects", label: "Projects", icon: FolderKanban },
-  { to: "/skills", label: "Skills", icon: Gauge },
-  { to: "/achievements", label: "Achievements", icon: Trophy },
-  { to: "/hackathons", label: "Hackathons", icon: Code2 },
+  { to: "/projects", label: "Project", icon: FolderKanban },
   { to: "/timeline", label: "Timeline", icon: GitBranch },
   { to: "/gallery", label: "Gallery", icon: Images },
   { to: "/documents", label: "Documents", icon: FileText },
   { to: "/contact", label: "Contact", icon: Mail },
-  { to: "/settings", label: "Settings", icon: Settings },
 ] as const;
+
 
 export function Sidebar({
   collapsed,

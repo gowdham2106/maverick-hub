@@ -1,174 +1,135 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ExternalLink, Github, Search } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Lightbulb, Sparkles, Layers } from "lucide-react";
 import { Chip, GlassCard, Meter, PageHeader, Reveal } from "@/components/ui-kit";
-import { PROJECTS } from "@/data/team";
+import { PROJECT } from "@/data/team";
 
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
-      { title: "Projects — Mission Mavericks" },
-      { name: "description", content: "Products built by Mission Mavericks: stacks, status, progress and owners." },
-      { property: "og:title", content: "Projects — Mission Mavericks" },
-      { property: "og:description", content: "Eight products from incident tooling to offline-first field apps." },
+      { title: "Motor Claims Intelligence Hub — Mission Mavericks" },
+      {
+        name: "description",
+        content:
+          "MCIH is an AI-powered motor insurance claims platform unifying vehicle, policy and claim data with explainable decision support.",
+      },
+      { property: "og:title", content: "Motor Claims Intelligence Hub (MCIH)" },
+      {
+        property: "og:description",
+        content: "AI powered insurance claims platform built by Mission Mavericks.",
+      },
     ],
   }),
-  component: ProjectsPage,
+  component: ProjectPage,
 });
 
-const FILTERS = ["All", "Live", "In Progress", "Planning"] as const;
-const PAGE_SIZE = 6;
-
-const STATUS_STYLES: Record<string, string> = {
-  Live: "border-success/30 bg-success/15 text-success",
-  "In Progress": "border-warning/30 bg-warning/15 text-warning",
-  Planning: "border-border bg-secondary text-muted-foreground",
-};
-
-function ProjectsPage() {
-  const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
-  const [page, setPage] = useState(1);
-
-  const filtered = useMemo(() => {
-    const q = query.toLowerCase();
-    return PROJECTS.filter(
-      (p) =>
-        (filter === "All" || p.status === filter) &&
-        (p.title.toLowerCase().includes(q) ||
-          p.description.toLowerCase().includes(q) ||
-          p.stack.some((s) => s.toLowerCase().includes(q))),
-    );
-  }, [query, filter]);
-
-  const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const current = Math.min(page, pages);
-  const visible = filtered.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);
-
+function ProjectPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Projects"
-        title="What we've shipped"
-        description="From hackathon prototypes to production deployments — every project with its stack, owner and progress."
+        eyebrow="Project"
+        title={PROJECT.title}
+        description={PROJECT.category}
       />
 
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <div className="relative flex-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-          <input
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setPage(1);
-            }}
-            placeholder="Search projects or technologies"
-            aria-label="Search projects"
-            className="h-11 w-full rounded-xl border border-border bg-card pl-9 pr-3 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          />
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {FILTERS.map((f) => (
-            <button
-              key={f}
-              type="button"
-              onClick={() => {
-                setFilter(f);
-                setPage(1);
-              }}
-              aria-pressed={filter === f}
-              className={
-                filter === f
-                  ? "gradient-brand rounded-xl px-3.5 py-2 text-xs font-semibold text-primary-foreground"
-                  : "rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
-              }
-            >
-              {f}
-            </button>
-          ))}
-        </div>
+      <Reveal>
+        <GlassCard className="overflow-hidden">
+          <div
+            className="relative h-36"
+            style={{ background: "linear-gradient(135deg, oklch(0.62 0.19 264), oklch(0.58 0.2 300))" }}
+            aria-hidden
+          >
+            <span className="absolute bottom-4 left-6 font-display text-2xl font-extrabold text-primary-foreground">
+              MCIH
+            </span>
+          </div>
+          <div className="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Status</p>
+              <p className="mt-1 font-semibold text-primary">{PROJECT.status}</p>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Duration</p>
+              <p className="mt-1 font-semibold">{PROJECT.duration}</p>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Current phase</p>
+              <p className="mt-1 font-semibold">{PROJECT.currentPhase}</p>
+            </div>
+            <div>
+              <Meter value={PROJECT.progress} label="Progress" />
+            </div>
+          </div>
+        </GlassCard>
+      </Reveal>
+
+      <div className="mt-6 grid gap-5 lg:grid-cols-2">
+        <Reveal>
+          <GlassCard interactive className="h-full p-7">
+            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-warning/15">
+              <AlertTriangle className="h-5 w-5 text-warning" aria-hidden />
+            </span>
+            <h2 className="mt-4 text-lg font-semibold">Problem statement</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{PROJECT.problem}</p>
+          </GlassCard>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <GlassCard interactive className="h-full p-7">
+            <span className="gradient-brand grid h-11 w-11 place-items-center rounded-2xl">
+              <Lightbulb className="h-5 w-5 text-primary-foreground" aria-hidden />
+            </span>
+            <h2 className="mt-4 text-lg font-semibold">Our solution</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{PROJECT.solution}</p>
+          </GlassCard>
+        </Reveal>
       </div>
 
-      {visible.length === 0 ? (
-        <GlassCard className="p-12 text-center">
-          <p className="font-semibold">No projects found</p>
-          <p className="mt-1 text-sm text-muted-foreground">Adjust your search or clear the status filter.</p>
-        </GlassCard>
-      ) : (
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {visible.map((p, i) => (
-            <Reveal key={p.id} delay={i * 0.05}>
-              <GlassCard interactive className="flex h-full flex-col overflow-hidden">
-                <div
-                  className="relative h-32"
-                  style={{
-                    background: `linear-gradient(135deg, oklch(0.6 0.2 ${p.hue}), oklch(0.55 0.21 ${p.hue + 45}))`,
-                  }}
-                  aria-hidden
-                >
-                  <span className="absolute bottom-3 left-5 font-display text-xl font-extrabold text-primary-foreground">
-                    {p.title}
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <div className="flex items-center justify-between gap-2">
-                    <Chip className={STATUS_STYLES[p.status]}>{p.status}</Chip>
-                    <span className="text-xs text-muted-foreground">{p.timeline}</span>
-                  </div>
-                  <p className="mt-3 text-sm text-muted-foreground">{p.description}</p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {p.stack.map((s) => (
-                      <Chip key={s}>{s}</Chip>
-                    ))}
-                  </div>
-                  <div className="mt-4">
-                    <Meter value={p.progress} label="Progress" />
-                  </div>
-                  <p className="mt-3 text-xs text-muted-foreground">Owner · {p.owner}</p>
-                  <div className="mt-auto flex gap-2 pt-4">
-                    <a
-                      href="https://github.com/"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-xl border border-border bg-card text-xs font-semibold transition-colors hover:border-primary/40 hover:text-primary"
-                    >
-                      <Github className="h-4 w-4" aria-hidden /> GitHub
-                    </a>
-                    <a
-                      href="https://github.com/"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="gradient-brand inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-xl text-xs font-semibold text-primary-foreground"
-                    >
-                      <ExternalLink className="h-4 w-4" aria-hidden /> Live Demo
-                    </a>
-                  </div>
-                </div>
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
-      )}
+      <h2 className="mb-4 mt-10 flex items-center gap-2 text-lg font-semibold">
+        <Sparkles className="h-5 w-5 text-primary" aria-hidden /> Key features
+      </h2>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {PROJECT.features.map((f, i) => (
+          <Reveal key={f} delay={i * 0.04}>
+            <GlassCard interactive className="flex h-full items-center gap-3 p-5">
+              <span className="gradient-brand grid h-9 w-9 shrink-0 place-items-center rounded-xl text-xs font-bold text-primary-foreground">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <p className="text-sm font-medium">{f}</p>
+            </GlassCard>
+          </Reveal>
+        ))}
+      </div>
 
-      {pages > 1 && (
-        <nav aria-label="Pagination" className="mt-8 flex items-center justify-center gap-2">
-          {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
-            <button
-              key={n}
-              type="button"
-              onClick={() => setPage(n)}
-              aria-current={current === n ? "page" : undefined}
-              className={
-                current === n
-                  ? "gradient-brand h-10 w-10 rounded-xl text-sm font-semibold text-primary-foreground"
-                  : "h-10 w-10 rounded-xl border border-border bg-card text-sm font-medium text-muted-foreground hover:text-foreground"
-              }
-            >
-              {n}
-            </button>
-          ))}
-        </nav>
-      )}
+      <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        <Reveal>
+          <GlassCard className="h-full p-7">
+            <h2 className="flex items-center gap-2 text-lg font-semibold">
+              <CheckCircle2 className="h-5 w-5 text-success" aria-hidden /> Expected outcomes
+            </h2>
+            <ul className="mt-4 space-y-3">
+              {PROJECT.outcomes.map((o) => (
+                <li key={o} className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" aria-hidden />
+                  {o}
+                </li>
+              ))}
+            </ul>
+          </GlassCard>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <GlassCard className="h-full p-7">
+            <h2 className="flex items-center gap-2 text-lg font-semibold">
+              <Layers className="h-5 w-5 text-primary" aria-hidden /> Technologies used
+            </h2>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {PROJECT.technologies.map((t) => (
+                <Chip key={t} className="px-3 py-1.5 text-xs">
+                  {t}
+                </Chip>
+              ))}
+            </div>
+          </GlassCard>
+        </Reveal>
+      </div>
     </div>
   );
 }

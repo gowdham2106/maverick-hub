@@ -18,6 +18,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as HackathonsRouteImport } from './routes/hackathons'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as TimelineRouteImport } from './routes/timeline'
 
@@ -66,6 +67,11 @@ const ProjectsRoute = ProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SkillsRoute = SkillsRouteImport.update({
   id: '/skills',
   path: '/skills',
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/hackathons': typeof HackathonsRoute
   '/members': typeof MembersRoute
   '/projects': typeof ProjectsRoute
+  '/settings': typeof SettingsRoute
   '/skills': typeof SkillsRoute
   '/timeline': typeof TimelineRoute
 }
@@ -100,6 +107,7 @@ export interface FileRoutesByTo {
   '/hackathons': typeof HackathonsRoute
   '/members': typeof MembersRoute
   '/projects': typeof ProjectsRoute
+  '/settings': typeof SettingsRoute
   '/skills': typeof SkillsRoute
   '/timeline': typeof TimelineRoute
 }
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/hackathons': typeof HackathonsRoute
   '/members': typeof MembersRoute
   '/projects': typeof ProjectsRoute
+  '/settings': typeof SettingsRoute
   '/skills': typeof SkillsRoute
   '/timeline': typeof TimelineRoute
 }
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/hackathons'
     | '/members'
     | '/projects'
+    | '/settings'
     | '/skills'
     | '/timeline'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/hackathons'
     | '/members'
     | '/projects'
+    | '/settings'
     | '/skills'
     | '/timeline'
   id:
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/hackathons'
     | '/members'
     | '/projects'
+    | '/settings'
     | '/skills'
     | '/timeline'
   fileRoutesById: FileRoutesById
@@ -169,6 +181,7 @@ export interface RootRouteChildren {
   HackathonsRoute: typeof HackathonsRoute
   MembersRoute: typeof MembersRoute
   ProjectsRoute: typeof ProjectsRoute
+  SettingsRoute: typeof SettingsRoute
   SkillsRoute: typeof SkillsRoute
   TimelineRoute: typeof TimelineRoute
 }
@@ -238,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/skills': {
       id: '/skills'
       path: '/skills'
@@ -265,6 +285,7 @@ const rootRouteChildren: RootRouteChildren = {
   HackathonsRoute: HackathonsRoute,
   MembersRoute: MembersRoute,
   ProjectsRoute: ProjectsRoute,
+  SettingsRoute: SettingsRoute,
   SkillsRoute: SkillsRoute,
   TimelineRoute: TimelineRoute,
 }

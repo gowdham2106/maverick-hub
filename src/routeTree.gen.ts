@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const ProjectsRoute = ProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RoadmapRoute = RoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TimelineRoute = TimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
   '/projects': typeof ProjectsRoute
+  '/roadmap': typeof RoadmapRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
   '/projects': typeof ProjectsRoute
+  '/roadmap': typeof RoadmapRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
   '/projects': typeof ProjectsRoute
+  '/roadmap': typeof RoadmapRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/documents'
     | '/gallery'
     | '/projects'
+    | '/roadmap'
     | '/timeline'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/documents'
     | '/gallery'
     | '/projects'
+    | '/roadmap'
     | '/timeline'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/documents'
     | '/gallery'
     | '/projects'
+    | '/roadmap'
     | '/timeline'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   DocumentsRoute: typeof DocumentsRoute
   GalleryRoute: typeof GalleryRoute
   ProjectsRoute: typeof ProjectsRoute
+  RoadmapRoute: typeof RoadmapRoute
   TimelineRoute: typeof TimelineRoute
 }
 
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/roadmap': {
+      id: '/roadmap'
+      path: '/roadmap'
+      fullPath: '/roadmap'
+      preLoaderRoute: typeof RoadmapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/timeline': {
       id: '/timeline'
       path: '/timeline'
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocumentsRoute: DocumentsRoute,
   GalleryRoute: GalleryRoute,
   ProjectsRoute: ProjectsRoute,
+  RoadmapRoute: RoadmapRoute,
   TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport

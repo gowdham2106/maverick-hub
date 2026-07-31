@@ -160,8 +160,14 @@ export function Aurora() {
 }
 
 /** Shimmer placeholder used while data loads. */
-export function Skeleton({ className }: { className?: string }) {
-  return <div className={cn("animate-pulse rounded-xl bg-secondary/70", className)} aria-hidden />;
+export function Skeleton({ className, style }: { className?: string; style?: React.CSSProperties }) {
+  return (
+    <div
+      className={cn("animate-pulse rounded-xl bg-secondary/70", className)}
+      style={style}
+      aria-hidden
+    />
+  );
 }
 
 /** Card-shaped skeleton grid for list and grid pages. */
@@ -169,10 +175,9 @@ export function SkeletonGrid({ count = 6, height = 140 }: { count?: number; heig
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="status" aria-label="Loading content">
       {Array.from({ length: count }).map((_, i) => (
-        <Skeleton key={i} className="rounded-3xl" style={undefined as never} />
+        <Skeleton key={i} className="rounded-3xl" style={{ height }} />
       ))}
       <span className="sr-only">Loading…</span>
-      <style>{`[role="status"] > div { height: ${height}px; }`}</style>
     </div>
   );
 }

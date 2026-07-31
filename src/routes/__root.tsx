@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Mission Mavericks team portfolio dashboard: members, projects, skills, hackathons and achievements.",
+          "Mission Mavericks Hub — the delivery portal for Claim Shield Plus: team, roadmap, documents and gallery.",
       },
       { name: "author", content: "Mission Mavericks" },
       { property: "og:type", content: "website" },

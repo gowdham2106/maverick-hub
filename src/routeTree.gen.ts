@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as LegalRouteImport } from './routes/legal'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 
@@ -36,6 +37,11 @@ const GalleryRoute = GalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
+  '/legal': typeof LegalRoute
   '/projects': typeof ProjectsRoute
   '/roadmap': typeof RoadmapRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
+  '/legal': typeof LegalRoute
   '/projects': typeof ProjectsRoute
   '/roadmap': typeof RoadmapRoute
 }
@@ -69,21 +77,36 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/documents': typeof DocumentsRoute
   '/gallery': typeof GalleryRoute
+  '/legal': typeof LegalRoute
   '/projects': typeof ProjectsRoute
   '/roadmap': typeof RoadmapRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/documents' | '/gallery' | '/projects' | '/roadmap'
+    | '/'
+    | '/about'
+    | '/documents'
+    | '/gallery'
+    | '/legal'
+    | '/projects'
+    | '/roadmap'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/documents' | '/gallery' | '/projects' | '/roadmap'
+  to:
+    | '/'
+    | '/about'
+    | '/documents'
+    | '/gallery'
+    | '/legal'
+    | '/projects'
+    | '/roadmap'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/documents'
     | '/gallery'
+    | '/legal'
     | '/projects'
     | '/roadmap'
   fileRoutesById: FileRoutesById
@@ -93,6 +116,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   DocumentsRoute: typeof DocumentsRoute
   GalleryRoute: typeof GalleryRoute
+  LegalRoute: typeof LegalRoute
   ProjectsRoute: typeof ProjectsRoute
   RoadmapRoute: typeof RoadmapRoute
 }
@@ -127,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
@@ -149,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   DocumentsRoute: DocumentsRoute,
   GalleryRoute: GalleryRoute,
+  LegalRoute: LegalRoute,
   ProjectsRoute: ProjectsRoute,
   RoadmapRoute: RoadmapRoute,
 }

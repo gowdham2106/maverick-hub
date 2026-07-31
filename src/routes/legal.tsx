@@ -31,8 +31,8 @@ function LegalPage() {
 
       <div className="grid gap-5 lg:grid-cols-2">
         <Reveal>
-          <GlassCard id="privacy" className="h-full p-7">
-            <h2 className="font-display text-lg font-bold">Privacy Policy</h2>
+          <GlassCard className="h-full p-7">
+            <h2 id="privacy" className="font-display text-lg font-bold">Privacy Policy</h2>
             <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
               <p>
                 {BRAND.appName} stores only the information required to run the delivery portal: team
@@ -52,8 +52,8 @@ function LegalPage() {
         </Reveal>
 
         <Reveal delay={0.06}>
-          <GlassCard id="terms" className="h-full p-7">
-            <h2 className="font-display text-lg font-bold">Terms of Use</h2>
+          <GlassCard className="h-full p-7">
+            <h2 id="terms" className="font-display text-lg font-bold">Terms of Use</h2>
             <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
               <p>
                 This portal documents the internal delivery of {BRAND.projectName}. Content is provided for

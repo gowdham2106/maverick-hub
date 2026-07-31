@@ -1,35 +1,75 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AlertTriangle, CheckCircle2, Lightbulb, Sparkles, Layers } from "lucide-react";
-import { Chip, GlassCard, Meter, PageHeader, Reveal } from "@/components/ui-kit";
-import { PROJECT } from "@/data/team";
+import {
+  AlertTriangle,
+  ArrowDown,
+  CheckCircle2,
+  Layers,
+  Lightbulb,
+  Sparkles,
+  TrendingUp,
+} from "lucide-react";
+import {
+  Chip,
+  EmptyState,
+  ErrorState,
+  GlassCard,
+  Meter,
+  PageHeader,
+  Reveal,
+  Skeleton,
+} from "@/components/ui-kit";
+import { ARCHITECTURE, BRAND } from "@/data/team";
+import { useProject } from "@/hooks/use-portal";
 
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
-      { title: "Motor Claims Intelligence Hub — Mission Mavericks" },
+      { title: "Claim Shield Plus — Mission Mavericks Hub" },
       {
         name: "description",
         content:
-          "MCIH is an AI-powered motor insurance claims platform unifying vehicle, policy and claim data with explainable decision support.",
+          "Claim Shield Plus is an AI powered motor insurance claims platform unifying vehicle, policy and claim data with explainable decision support.",
       },
-      { property: "og:title", content: "Motor Claims Intelligence Hub (MCIH)" },
+      { property: "og:title", content: "Claim Shield Plus" },
       {
         property: "og:description",
-        content: "AI powered insurance claims platform built by Mission Mavericks.",
+        content: "AI powered motor insurance claims platform built by Mission Mavericks.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ProjectPage,
 });
 
 function ProjectPage() {
+  const { data: project, isLoading, isError, refetch } = useProject();
+
+  if (isLoading) {
+    return (
+      <div className="space-y-5">
+        <Skeleton className="rounded-3xl" style={{ height: 180 }} />
+        <Skeleton className="rounded-3xl" style={{ height: 220 }} />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <ErrorState message="The project details could not be loaded." onRetry={() => refetch()} />;
+  }
+
+  if (!project) {
+    return (
+      <EmptyState
+        title="No project published"
+        description="Project details will appear here once an administrator publishes them."
+      />
+    );
+  }
+
   return (
     <div>
-      <PageHeader
-        eyebrow="Project"
-        title={PROJECT.title}
-        description={PROJECT.category}
-      />
+      <PageHeader eyebrow="Project" title={project.name} description={project.category} />
 
       <Reveal>
         <GlassCard className="overflow-hidden">
@@ -39,24 +79,20 @@ function ProjectPage() {
             aria-hidden
           >
             <span className="absolute bottom-4 left-6 font-display text-2xl font-extrabold text-primary-foreground">
-              MCIH
+              {BRAND.projectName}
             </span>
           </div>
-          <div className="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">
             <div>
               <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Status</p>
-              <p className="mt-1 font-semibold text-primary">{PROJECT.status}</p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Duration</p>
-              <p className="mt-1 font-semibold">{PROJECT.duration}</p>
+              <p className="mt-1 font-semibold text-primary">{project.status}</p>
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Current phase</p>
-              <p className="mt-1 font-semibold">{PROJECT.currentPhase}</p>
+              <p className="mt-1 font-semibold">{project.current_phase}</p>
             </div>
             <div>
-              <Meter value={PROJECT.progress} label="Progress" />
+              <Meter value={project.progress} label="Progress" />
             </div>
           </div>
         </GlassCard>
@@ -69,7 +105,7 @@ function ProjectPage() {
               <AlertTriangle className="h-5 w-5 text-warning" aria-hidden />
             </span>
             <h2 className="mt-4 text-lg font-semibold">Problem statement</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{PROJECT.problem}</p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{project.problem}</p>
           </GlassCard>
         </Reveal>
         <Reveal delay={0.06}>
@@ -78,7 +114,7 @@ function ProjectPage() {
               <Lightbulb className="h-5 w-5 text-primary-foreground" aria-hidden />
             </span>
             <h2 className="mt-4 text-lg font-semibold">Our solution</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{PROJECT.solution}</p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{project.solution}</p>
           </GlassCard>
         </Reveal>
       </div>
@@ -87,7 +123,7 @@ function ProjectPage() {
         <Sparkles className="h-5 w-5 text-primary" aria-hidden /> Key features
       </h2>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {PROJECT.features.map((f, i) => (
+        {project.features.map((f, i) => (
           <Reveal key={f} delay={i * 0.04}>
             <GlassCard interactive className="flex h-full items-center gap-3 p-5">
               <span className="gradient-brand grid h-9 w-9 shrink-0 place-items-center rounded-xl text-xs font-bold text-primary-foreground">
@@ -99,6 +135,34 @@ function ProjectPage() {
         ))}
       </div>
 
+      <h2 className="mb-4 mt-10 flex items-center gap-2 text-lg font-semibold">
+        <Layers className="h-5 w-5 text-primary" aria-hidden /> Project architecture
+      </h2>
+      <Reveal>
+        <GlassCard className="p-7">
+          <ol className="mx-auto flex max-w-2xl flex-col items-stretch">
+            {ARCHITECTURE.map((a, i) => (
+              <li key={a.layer}>
+                <div className="flex items-center gap-4 rounded-2xl border border-border bg-card/60 p-4">
+                  <span className="gradient-brand grid h-10 w-10 shrink-0 place-items-center rounded-xl text-xs font-bold text-primary-foreground">
+                    {i + 1}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="font-display text-sm font-bold">{a.layer}</p>
+                    <p className="text-xs text-muted-foreground">{a.detail}</p>
+                  </div>
+                </div>
+                {i < ARCHITECTURE.length - 1 && (
+                  <div className="flex justify-center py-2" aria-hidden>
+                    <ArrowDown className="h-4 w-4 text-primary" />
+                  </div>
+                )}
+              </li>
+            ))}
+          </ol>
+        </GlassCard>
+      </Reveal>
+
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
         <Reveal>
           <GlassCard className="h-full p-7">
@@ -106,7 +170,7 @@ function ProjectPage() {
               <CheckCircle2 className="h-5 w-5 text-success" aria-hidden /> Expected outcomes
             </h2>
             <ul className="mt-4 space-y-3">
-              {PROJECT.outcomes.map((o) => (
+              {project.outcomes.map((o) => (
                 <li key={o} className="flex items-start gap-3 text-sm text-muted-foreground">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" aria-hidden />
                   {o}
@@ -118,18 +182,43 @@ function ProjectPage() {
         <Reveal delay={0.06}>
           <GlassCard className="h-full p-7">
             <h2 className="flex items-center gap-2 text-lg font-semibold">
-              <Layers className="h-5 w-5 text-primary" aria-hidden /> Technologies used
+              <TrendingUp className="h-5 w-5 text-primary" aria-hidden /> Business benefits
             </h2>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {PROJECT.technologies.map((t) => (
-                <Chip key={t} className="px-3 py-1.5 text-xs">
-                  {t}
-                </Chip>
+            <ul className="mt-4 space-y-3">
+              {project.business_benefits.map((b) => (
+                <li key={b} className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
+                  {b}
+                </li>
               ))}
-            </div>
+            </ul>
           </GlassCard>
         </Reveal>
       </div>
+
+      <Reveal>
+        <GlassCard className="mt-6 p-7">
+          <h2 className="flex items-center gap-2 text-lg font-semibold">
+            <TrendingUp className="h-5 w-5 text-primary" aria-hidden /> Business impact
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.business_impact}</p>
+        </GlassCard>
+      </Reveal>
+
+      <Reveal delay={0.06}>
+        <GlassCard className="mt-6 p-7">
+          <h2 className="flex items-center gap-2 text-lg font-semibold">
+            <Layers className="h-5 w-5 text-primary" aria-hidden /> Technology stack
+          </h2>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {project.technologies.map((t) => (
+              <Chip key={t} className="px-3 py-1.5 text-xs">
+                {t}
+              </Chip>
+            ))}
+          </div>
+        </GlassCard>
+      </Reveal>
     </div>
   );
 }

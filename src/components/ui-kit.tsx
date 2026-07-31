@@ -1,5 +1,6 @@
 import { motion, useInView, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, type ReactNode } from "react";
+import { AlertCircle, Inbox, Loader2, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /** Fade + slide-up on scroll into view. */
@@ -155,5 +156,80 @@ export function Aurora() {
         style={{ animationDelay: "-6s" }}
       />
     </div>
+  );
+}
+
+/** Shimmer placeholder used while data loads. */
+export function Skeleton({ className, style }: { className?: string; style?: React.CSSProperties }) {
+  return (
+    <div
+      className={cn("animate-pulse rounded-xl bg-secondary/70", className)}
+      style={style}
+      aria-hidden
+    />
+  );
+}
+
+/** Card-shaped skeleton grid for list and grid pages. */
+export function SkeletonGrid({ count = 6, height = 140 }: { count?: number; height?: number }) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="status" aria-label="Loading content">
+      {Array.from({ length: count }).map((_, i) => (
+        <Skeleton key={i} className="rounded-3xl" style={{ height }} />
+      ))}
+      <span className="sr-only">Loading…</span>
+    </div>
+  );
+}
+
+/** Centered spinner for inline loading states. */
+export function Spinner({ label = "Loading" }: { label?: string }) {
+  return (
+    <div className="grid place-items-center p-12" role="status">
+      <Loader2 className="h-6 w-6 animate-spin text-primary" aria-hidden />
+      <span className="sr-only">{label}</span>
+    </div>
+  );
+}
+
+/** Friendly empty state with an illustrated gradient mark. */
+export function EmptyState({
+  title,
+  description,
+  action,
+}: {
+  title: string;
+  description: string;
+  action?: ReactNode;
+}) {
+  return (
+    <GlassCard className="p-12 text-center">
+      <span className="gradient-brand mx-auto grid h-14 w-14 place-items-center rounded-3xl">
+        <Inbox className="h-6 w-6 text-primary-foreground" aria-hidden />
+      </span>
+      <p className="mt-4 font-display text-lg font-bold">{title}</p>
+      <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">{description}</p>
+      {action ? <div className="mt-5 flex justify-center">{action}</div> : null}
+    </GlassCard>
+  );
+}
+
+/** Error state with a retry affordance. */
+export function ErrorState({ message, onRetry }: { message: string; onRetry: () => void }) {
+  return (
+    <GlassCard className="p-12 text-center">
+      <span className="grid mx-auto h-14 w-14 place-items-center rounded-3xl bg-destructive/10">
+        <AlertCircle className="h-6 w-6 text-destructive" aria-hidden />
+      </span>
+      <p className="mt-4 font-display text-lg font-bold">Something went wrong</p>
+      <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">{message}</p>
+      <button
+        type="button"
+        onClick={onRetry}
+        className="mt-5 inline-flex h-11 items-center gap-2 rounded-xl border border-border bg-card px-5 text-sm font-semibold transition-colors hover:border-primary/40 hover:text-primary"
+      >
+        <RefreshCw className="h-4 w-4" aria-hidden /> Try again
+      </button>
+    </GlassCard>
   );
 }

@@ -81,11 +81,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Mission Mavericks — Team Portfolio Dashboard" },
+      { title: "Mission Mavericks Hub — Claim Shield Plus" },
       {
         name: "description",
         content:
-          "Mission Mavericks team portfolio dashboard: members, projects, skills, hackathons and achievements.",
+          "Mission Mavericks Hub — the delivery portal for Claim Shield Plus: team, roadmap, documents and gallery.",
       },
       { name: "author", content: "Mission Mavericks" },
       { property: "og:type", content: "website" },
@@ -102,7 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),
 

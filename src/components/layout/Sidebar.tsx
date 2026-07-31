@@ -6,24 +6,21 @@ import {
   GitBranch,
   Images,
   FileText,
-  Mail,
   Info,
   PanelLeftClose,
   PanelLeftOpen,
-  Rocket,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LogoLockup } from "@/components/brand/Logo";
 
 export const NAV_ITEMS = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/about", label: "About Team", icon: Info },
   { to: "/projects", label: "Project", icon: FolderKanban },
-  { to: "/timeline", label: "Timeline", icon: GitBranch },
+  { to: "/roadmap", label: "Roadmap", icon: GitBranch },
   { to: "/gallery", label: "Gallery", icon: Images },
   { to: "/documents", label: "Documents", icon: FileText },
-  { to: "/contact", label: "Contact", icon: Mail },
 ] as const;
-
 
 export function Sidebar({
   collapsed,
@@ -45,15 +42,7 @@ export function Sidebar({
       )}
     >
       <div className="flex items-center gap-3 px-4 py-5">
-        <span className="gradient-brand shadow-glow grid h-10 w-10 shrink-0 place-items-center rounded-2xl">
-          <Rocket className="h-5 w-5 text-primary-foreground" aria-hidden />
-        </span>
-        {!collapsed && (
-          <div className="min-w-0">
-            <p className="truncate font-display text-sm font-bold">Mission Mavericks</p>
-            <p className="truncate text-[11px] text-muted-foreground">Team Portfolio</p>
-          </div>
-        )}
+        <LogoLockup collapsed={collapsed} size={40} />
       </div>
 
       <div className="flex-1 space-y-1 overflow-y-auto px-3 pb-4">

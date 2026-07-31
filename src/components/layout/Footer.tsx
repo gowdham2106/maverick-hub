@@ -42,10 +42,10 @@ export function Footer() {
           © {new Date().getFullYear()} {BRAND.teamName}. All rights reserved.
         </p>
         <div className="flex flex-wrap items-center gap-4">
-          <Link to="/legal" search={{ tab: "privacy" }} className="hover:text-foreground">
+          <Link to="/legal" hash="privacy" className="hover:text-foreground">
             Privacy Policy
           </Link>
-          <Link to="/legal" search={{ tab: "terms" }} className="hover:text-foreground">
+          <Link to="/legal" hash="terms" className="hover:text-foreground">
             Terms
           </Link>
           <span>Version {BRAND.version}</span>

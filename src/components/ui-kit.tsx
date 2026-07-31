@@ -1,5 +1,6 @@
 import { motion, useInView, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, type ReactNode } from "react";
+import { AlertCircle, Inbox, Loader2, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /** Fade + slide-up on scroll into view. */

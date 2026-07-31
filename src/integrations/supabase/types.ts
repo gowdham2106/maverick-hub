@@ -70,6 +70,7 @@ export type Database = {
           uploaded_by: string | null
           uploaded_by_name: string | null
           uploaded_date: string
+          version: string
           week_number: number
         }
         Insert: {
@@ -85,6 +86,7 @@ export type Database = {
           uploaded_by?: string | null
           uploaded_by_name?: string | null
           uploaded_date?: string
+          version?: string
           week_number: number
         }
         Update: {
@@ -100,7 +102,134 @@ export type Database = {
           uploaded_by?: string | null
           uploaded_by_name?: string | null
           uploaded_date?: string
+          version?: string
           week_number?: number
+        }
+        Relationships: []
+      }
+      gallery_items: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          file_name: string
+          file_path: string
+          file_size: number
+          id: string
+          media_type: string
+          mime_type: string | null
+          title: string
+          updated_at: string
+          uploaded_by: string | null
+          uploaded_by_name: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          file_name: string
+          file_path: string
+          file_size?: number
+          id?: string
+          media_type?: string
+          mime_type?: string | null
+          title: string
+          updated_at?: string
+          uploaded_by?: string | null
+          uploaded_by_name?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          file_name?: string
+          file_path?: string
+          file_size?: number
+          id?: string
+          media_type?: string
+          mime_type?: string | null
+          title?: string
+          updated_at?: string
+          uploaded_by?: string | null
+          uploaded_by_name?: string | null
+        }
+        Relationships: []
+      }
+      members: {
+        Row: {
+          created_at: string
+          department: string | null
+          email: string | null
+          hue: number
+          id: string
+          initials: string | null
+          linkedin_url: string | null
+          member_group: string
+          name: string
+          photo_url: string | null
+          responsibilities: string[]
+          role: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          department?: string | null
+          email?: string | null
+          hue?: number
+          id?: string
+          initials?: string | null
+          linkedin_url?: string | null
+          member_group?: string
+          name: string
+          photo_url?: string | null
+          responsibilities?: string[]
+          role: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          department?: string | null
+          email?: string | null
+          hue?: number
+          id?: string
+          initials?: string | null
+          linkedin_url?: string | null
+          member_group?: string
+          name?: string
+          photo_url?: string | null
+          responsibilities?: string[]
+          role?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string | null
+          title: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string | null
+          title: string
+          type?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string | null
+          title?: string
+          type?: string
         }
         Relationships: []
       }
@@ -122,6 +251,99 @@ export type Database = {
           display_name?: string | null
           email?: string | null
           id?: string
+        }
+        Relationships: []
+      }
+      project_details: {
+        Row: {
+          business_benefits: string[]
+          business_impact: string
+          category: string
+          created_at: string
+          current_phase: string
+          features: string[]
+          id: string
+          is_active: boolean
+          name: string
+          outcomes: string[]
+          problem: string
+          progress: number
+          solution: string
+          status: string
+          technologies: string[]
+          updated_at: string
+        }
+        Insert: {
+          business_benefits?: string[]
+          business_impact?: string
+          category?: string
+          created_at?: string
+          current_phase?: string
+          features?: string[]
+          id?: string
+          is_active?: boolean
+          name: string
+          outcomes?: string[]
+          problem?: string
+          progress?: number
+          solution?: string
+          status?: string
+          technologies?: string[]
+          updated_at?: string
+        }
+        Update: {
+          business_benefits?: string[]
+          business_impact?: string
+          category?: string
+          created_at?: string
+          current_phase?: string
+          features?: string[]
+          id?: string
+          is_active?: boolean
+          name?: string
+          outcomes?: string[]
+          problem?: string
+          progress?: number
+          solution?: string
+          status?: string
+          technologies?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      roadmap_weeks: {
+        Row: {
+          created_at: string
+          deliverables: string[]
+          focus_items: string[]
+          id: string
+          progress: number
+          status: string
+          title: string
+          updated_at: string
+          week_number: number
+        }
+        Insert: {
+          created_at?: string
+          deliverables?: string[]
+          focus_items?: string[]
+          id?: string
+          progress?: number
+          status?: string
+          title: string
+          updated_at?: string
+          week_number: number
+        }
+        Update: {
+          created_at?: string
+          deliverables?: string[]
+          focus_items?: string[]
+          id?: string
+          progress?: number
+          status?: string
+          title?: string
+          updated_at?: string
+          week_number?: number
         }
         Relationships: []
       }

@@ -79,10 +79,16 @@ export const WEEKS = [1, 2, 3, 4] as const;
 export const DOCUMENT_TYPES = [
   "Weekly Report",
   "Minutes of Meeting",
-  "Architecture",
-  "Presentation",
-  "Screenshots",
-  "Demo Video",
+  "Project Charter",
+  "Project Pitch",
+  "Statement of Work",
+  "FRS Document",
+  "Workflow",
+  "Prototype / UI Mockup",
+  "Test Case",
+  "Test Result Summary",
+  "Demo",
+  "Project Document",
 ] as const;
 export type DocumentType = (typeof DOCUMENT_TYPES)[number];
 

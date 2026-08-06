@@ -124,7 +124,7 @@ function DocumentsPage() {
     <div>
       <PageHeader
         eyebrow="Documents"
-        title="Weekly reports & minutes of meeting"
+        title="Project Documents "
         description="Every week's documentation in one place — searchable, previewable and downloadable."
         action={
           <div className="flex gap-2">
